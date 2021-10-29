@@ -28,3 +28,10 @@ data "aws_ami" "amzn" {
         Name = "hlpark-weba"
       }
   }
+
+resource "aws_eip" "hlpark_web_eip" {
+  vpc = true
+  instance = aws_instance.hlpark_weba.id
+  associate_with_private_ip = "10.0.0.11"
+  depends_on = [aws_internet_gateway.hlpark_ig]
+}
